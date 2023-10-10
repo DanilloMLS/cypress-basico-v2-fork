@@ -167,7 +167,7 @@ describe('Central de Atendimento ao Cliente TAT', function() {
     })
 
     //Ex 2
-    it.only('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function () {
+    it('seleciona um arquivo utilizando uma fixture para a qual foi dada um alias', function () {
         cy.fixture('example.json').as('sampleFile')
         cy.get('input[type="file"]')
             .should('not.have.value')
@@ -175,5 +175,19 @@ describe('Central de Atendimento ao Cliente TAT', function() {
             .should(function($input) {
                 expect($input[0].files[0].name).to.equal('example.json')
             })
+    })
+
+    //Aula 7 - Abas do navegador
+    //Ex 0
+    it('verifica que a política de privacidade abre em outra aba sem a necessidade de um clique', function () {
+        cy.get('a[href="privacy.html"]').should('have.attr','target','_blank')
+    })
+
+    //Ex 1
+    it('verifica que a política de privacidade abre clicando no link', function () {
+        cy.get('a[href="privacy.html"]')
+            .invoke('removeAttr', 'target')
+            .click()
+        cy.get('h1[id="title"]').should('have.text','CAC TAT - Política de privacidade')
     })
   })
